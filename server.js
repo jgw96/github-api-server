@@ -26,7 +26,7 @@ app.post("/auth", (req, res) => {
         username: req.body.username,
         password: req.body.password
     });
-    
+
     ghme = client.me();
 
     ghme.info((err, data, headers) => {
@@ -41,16 +41,28 @@ app.post("/auth", (req, res) => {
 
 //follow someone
 app.post("/follow", (req, res) => {
-    ghme.follow(req.body.name);
-    res.send({message: `${req.body.name} followed`});
-    winston.log("info", `${req.body.name} followed`);
+    ghme.follow(req.body.name, (err, data, headers) => {
+        if (err) {
+            winston.log("debug", err);
+        }
+        else {
+            res.send({message: `${req.body.name} followed`});
+            winston.log("info", `${req.body.name} followed`);
+        }
+    });
 });
 
 //unfollow
 app.post("/unfollow", (req, res) => {
-    ghme.unfollow(req.body.name);
-    res.send({message: `${req.body.name} unfollowed`});
-    winston.log("info", `${req.body.name} unfollowed`);
+    ghme.unfollow(req.body.name, (err, data, headers) => {
+        if (err) {
+            winston.log("debug", err);
+        }
+        else {
+            res.send({ message: `${req.body.name} unfollowed` });
+            winston.log("info", `${req.body.name} unfollowed`);
+        }
+    });
 });
 
 //get starred repos
@@ -67,16 +79,28 @@ app.get("/starred", (req, res) => {
 
 //star a repo
 app.post("/star", (req, res) => {
-    ghme.star(req.body.name);
-    res.send({message: `${req.body.name} starred`});
-    winston.log("info", `${req.body.name} starred`);
+    ghme.star(req.body.name, (err, data, headers) => {
+        if (err) {
+            winston.log("debug", err);
+        }
+        else {
+            res.send({ message: `${req.body.name} starred` });
+            winston.log("info", `${req.body.name} starred`);
+        }
+    });
 });
 
 //unstar a repo
 app.post("/unstar", (req, res) => {
-    ghme.unstar(req.body.name);
-    res.send({message: `${req.body.name} unstarred`});
-    winston.log("info", `${req.body.name} unstarred`);
+    ghme.unstar(req.body.name, (err, data, headers) => {
+        if (err) {
+            winston.log("debug", err);
+        }
+        else {
+            res.send({ message: `${req.body.name} unstarred` });
+            winston.log("info", `${req.body.name} unstarred`);
+        }
+    });
 });
 
 //get my repos
