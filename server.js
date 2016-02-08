@@ -2,9 +2,11 @@
 const express = require('express');
 const app = express();
 const bodyParser = require("body-parser");
+const cors = require("cors");
 
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
+app.use(cors());
 
 const github = require("octonode");
 const winston = require("winston");
@@ -19,6 +21,7 @@ app.get('/test', (req, res) => {
 
 //auth route
 app.post("/auth", (req, res) => {
+    console.log(req.body);
     client = github.client({
         username: req.body.username,
         password: req.body.password
