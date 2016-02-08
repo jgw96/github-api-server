@@ -1,0 +1,18 @@
+{
+  "name": "free-chat-server",
+  "version": "1.0.0",
+  "description": "",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Justin Willis",
+  "license": "ISC",
+  "dependencies": {
+    "body-parser": "^1.14.2",
+    "express": "^4.13.4",
+    "github": "^0.2.4",
+    "octonode": "^0.7.4",
+    "winston": "^2.1.1"
+  }
+}
