@@ -130,6 +130,18 @@ app.post("/makerepo", (req, res) => {
     });
 });
 
+//get users that I follow
+app.get("/ifollow", (req, res) => {
+    ghme.following(1, 200, (err, data, headers) => {
+        if (err) {
+            winston.log("debug", err);
+        }
+        else {
+            res.send(data);
+        }
+    });
+});
+
 app.listen(8080, () => {
     winston.log("info", 'Example app listening on port 8080!');
 });
