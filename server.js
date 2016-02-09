@@ -142,6 +142,18 @@ app.get("/ifollow", (req, res) => {
     });
 });
 
+//get info about the authed user
+app.get("/me", (req, res) => {
+    ghme.info( (err, data, headers) => {
+        if (err) {
+            winston.log("debug", err);
+        }
+        else {
+            res.send(data);
+        }
+    });
+});
+
 app.listen(8080, () => {
     winston.log("info", 'Example app listening on port 8080!');
 });
