@@ -105,7 +105,7 @@ app.post("/unstar", (req, res) => {
 
 //get my repos
 app.get("/myrepos", (req, res) => {
-    ghme.repos((err, data, headers) => {
+    ghme.repos(1, 100, (err, data, headers) => {
         if (err) {
             winston.log("info", err);
         }
