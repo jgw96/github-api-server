@@ -115,6 +115,21 @@ app.get("/myrepos", (req, res) => {
     });
 });
 
+//make a new repo
+app.post("/makerepo", (req, res) => {
+    ghme.repo({
+        "name": req.body.name,
+        "description": req.body.description
+    }, (err, data, headers) => {
+        if (err) {
+            winston.log("debug", err);
+        }
+        else {
+            res.send(data);
+        }
+    });
+});
+
 app.listen(8080, () => {
     winston.log("info", 'Example app listening on port 8080!');
 });
