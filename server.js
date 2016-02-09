@@ -143,7 +143,7 @@ app.get("/ifollow", (req, res) => {
 });
 
 //get users following the authed user
-app.get("followme", (req, res) => {
+app.get("/followme", (req, res) => {
     ghme.followers((err, data, headers) => {
         if (err) {
             winston.log("debug", err);
