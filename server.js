@@ -142,6 +142,18 @@ app.get("/ifollow", (req, res) => {
     });
 });
 
+//get users following the authed user
+app.get("followme", (req, res) => {
+    ghme.followers((err, data, headers) => {
+        if (err) {
+            winston.log("debug", err);
+        }
+        else {
+            res.send(data);
+        }
+    });
+});
+
 //get info about the authed user
 app.get("/me", (req, res) => {
     ghme.info( (err, data, headers) => {
