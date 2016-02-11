@@ -166,6 +166,18 @@ app.get("/me", (req, res) => {
     });
 });
 
+//get notifications
+app.get("/notifications", (req, res) => {
+    ghme.notifications({}, (err, data, headers) => {
+        if (err) {
+            winston.log("debug", err);
+        }
+        else {
+            res.send(data);
+        }
+    });
+});
+
 app.listen(8080, () => {
     winston.log("info", 'Example app listening on port 8080!');
 });
