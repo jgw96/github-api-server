@@ -168,7 +168,7 @@ app.get("/me", (req, res) => {
 
 //get notifications
 app.get("/notifications", (req, res) => {
-    ghme.notifications({}, (err, data, headers) => {
+    ghme.notifications({all: true, participating: false},(err, data, headers) => {
         if (err) {
             winston.log("debug", err);
         }
