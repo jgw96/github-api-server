@@ -11,6 +11,9 @@ app.use(cors());
 const github = require("octonode");
 const winston = require("winston");
 
+//configure winston
+winston.add(winston.transports.File, { filename: 'logs.log'});
+
 let client;
 let ghme;
 
@@ -31,7 +34,7 @@ app.post("/auth", (req, res) => {
 
     ghme.info((err, data, headers) => {
         if (err) {
-            winston.log("info", err);
+            winston.log("debug", err);
         }
         else {
             res.send(data);
@@ -46,7 +49,7 @@ app.post("/follow", (req, res) => {
             winston.log("debug", err);
         }
         else {
-            res.send({message: `${req.body.name} followed`});
+            res.send({ message: `${req.body.name} followed` });
             winston.log("info", `${req.body.name} followed`);
         }
     });
@@ -73,6 +76,7 @@ app.get("/starred", (req, res) => {
         }
         else {
             res.send(data);
+            winston.log("info", "Got a users starred repos");
         }
     });
 });
@@ -107,10 +111,11 @@ app.post("/unstar", (req, res) => {
 app.get("/myrepos", (req, res) => {
     ghme.repos(1, 200, (err, data, headers) => {
         if (err) {
-            winston.log("info", err);
+            winston.log("debug", err);
         }
         else {
             res.send(data);
+            winston.log("info", "Got a users repos");
         }
     });
 });
@@ -126,6 +131,7 @@ app.post("/makerepo", (req, res) => {
         }
         else {
             res.send(data);
+            winston.log("info", "Made a repo for a user");
         }
     });
 });
@@ -138,6 +144,7 @@ app.get("/ifollow", (req, res) => {
         }
         else {
             res.send(data);
+            winston.log("info", "Got people that a user followed");
         }
     });
 });
@@ -150,34 +157,37 @@ app.get("/followme", (req, res) => {
         }
         else {
             res.send(data);
+            winston.log("info", "Got users following the authed user");
         }
     });
 });
 
 //get info about the authed user
 app.get("/me", (req, res) => {
-    ghme.info( (err, data, headers) => {
+    ghme.info((err, data, headers) => {
         if (err) {
             winston.log("debug", err);
         }
         else {
             res.send(data);
+            winston.log("info", "Got info about an authed user");
         }
     });
 });
 
 //get notifications
 app.get("/notifications", (req, res) => {
-    ghme.notifications({}, (err, data, headers) => {
+    ghme.notifications((err, data, headers) => {
         if (err) {
             winston.log("debug", err);
         }
         else {
             res.send(data);
+            winston.log("info", "Got notifications from a user");
         }
     });
 });
 
 app.listen(8080, () => {
-    winston.log("info", 'Example app listening on port 8080!');
+    winston.log("info", 'Server started and listening on port 8080!');
 });
