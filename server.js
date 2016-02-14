@@ -177,7 +177,7 @@ app.get("/me", (req, res) => {
 
 //get notifications
 app.get("/notifications", (req, res) => {
-    ghme.notifications((err, data, headers) => {
+    ghme.notifications({all: true, participating: false},(err, data, headers) => {
         if (err) {
             winston.log("debug", err);
         }
@@ -191,3 +191,4 @@ app.get("/notifications", (req, res) => {
 app.listen(8080, () => {
     winston.log("info", 'Server started and listening on port 8080!');
 });
+
